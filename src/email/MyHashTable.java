@@ -12,9 +12,9 @@ import java.util.Iterator;
  * @author anmol
  */
 public class MyHashTable {
-    MyLinkedList<WordEntry>[] hash = new MyLinkedList[200];
+    MyLinkedList<WordEntry>[] hash = new MyLinkedList[10000];
     public int getHashIndex(String str){
-        return ((int)str.charAt(0))-40;
+        return ((int)str.charAt(0));
     }
     void addPositionsForWord(WordEntry w){
         //System.out.println("a is "+w.str+ " "+this.getHashIndex(w.str) );
@@ -35,6 +35,7 @@ public class MyHashTable {
         }
         else{
             hash[this.getHashIndex(w.str)]= new MyLinkedList<>();
+            hash[this.getHashIndex(w.str)].add(w);
             //System.out.println("a is null "+w.str+ " "+this.getHashIndex(w.str) );
         }
     }

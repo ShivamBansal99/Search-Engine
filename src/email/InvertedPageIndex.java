@@ -18,16 +18,13 @@ public class InvertedPageIndex {
     MyHashTable ht = new MyHashTable();
     MyLinkedList<String> connct=new MyLinkedList<>(); 
     String singular(String s){
-        if(s.equals("stacks"))
-        {
+        if(s.equals("stacks")){
             s = "stack";
         }
-        if(s.equals("structures"))
-        {
+        if(s.equals("structures")){
             s = "structure";
         }
-        if(s.equals("applications"))
-        {
+        if(s.equals("applications")){
             s = "application";
         }
         return s;
@@ -64,11 +61,12 @@ public class InvertedPageIndex {
         MySet<PageEntry> ms = new MySet<>();
         MyLinkedList<WordEntry> n = ht.hash[ht.getHashIndex(str)];
         if(n!=null){
-        for(int i=0;i<n.size();i++){
-            if(n.get(i).str.equals(str)){
-                WordEntry w = n.get(i);
-                for(int j=0;j<w.pos.size();j++){
-                    ms.Insert(w.pos.get(j).p);
+            for(int i=0;i<n.size();i++){
+                //System.out.println("123 "+n.get(i).str);
+                if(n.get(i).str.equals(str)){
+                    WordEntry w = n.get(i);
+                    for(int j=0;j<w.pos.size();j++){
+                        ms.Insert(w.pos.get(j).p);
                     }
                 }
             }

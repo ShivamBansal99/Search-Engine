@@ -36,7 +36,7 @@ public class SearchEngine {
             invpageindex.addPage(p);
         }
         if(s[0].equals("queryFindPagesWhichContainWord")){
-            MySet<PageEntry> m = invpageindex.getPagesWhichContainWord(s[1]);
+            MySet<PageEntry> m = invpageindex.getPagesWhichContainWord(this.singular( s[1].toLowerCase()));
             for(int i=0;i<m.linkedl.size();i++){
                 if(i==m.linkedl.size()-1) System.out.print(m.linkedl.get(i).Pagekaname+"\n");
                 else System.out.print(m.linkedl.get(i).Pagekaname+" ,");
@@ -51,16 +51,26 @@ public class SearchEngine {
                 System.out.println("No webpage "+s[2]+" found");
                 return;
             }
-            WordEntry wrd = this.getWordsFromPageIndex(pi, s[1]);
+            WordEntry wrd = this.getWordsFromPageIndex(pi, this.singular( s[1].toLowerCase()));
                 for(int j=0;j<wrd.pos.size();j++){
                     if(j==wrd.pos.size()-1) System.out.print(wrd.pos.get(j).wordIndex+"\n");
                     else System.out.print(wrd.pos.get(j).wordIndex+" ,");
                 }
-                
-            
             if(wrd==null){
                 System.out.println("Webpage "+s[2]+" does not contain word "+s[1]);
             }
         }
+    }
+    String singular(String s){
+        if(s.equals("stacks")){
+            s = "stack";
+        }
+        if(s.equals("structures")){
+            s = "structure";
+        }
+        if(s.equals("applications")){
+            s = "application";
+        }
+        return s;
     }
 }
