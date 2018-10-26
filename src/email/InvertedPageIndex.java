@@ -1,18 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package email;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-
-/**
- *
- * @author anmol
- */
 public class InvertedPageIndex {
     MySet<PageEntry> set  = new MySet<>();
     MyHashTable ht = new MyHashTable();
@@ -37,6 +26,7 @@ public class InvertedPageIndex {
         FileInputStream fs = new FileInputStream(p.Pagekaname);
         Scanner s = new Scanner(fs);
         int count = 1;
+        int originalcount=1;
         while(s.hasNext()){
             String st = s.nextLine();
             st=st.toLowerCase();
@@ -46,10 +36,11 @@ public class InvertedPageIndex {
                     if(!connct.contains(t[i])){
                         t[i]=singular(t[i]);
                         WordEntry we= new WordEntry(t[i]);
-                        Position pos =new Position(p,count);
+                        Position pos =new Position(p,count,originalcount);
                         we.addPosition(pos);
                         this.ht.addPositionsForWord(we);
                         p.PI.addPositionForWord(t[i], pos);
+                        originalcount++;
                     }
                 count++;
                 }
@@ -88,5 +79,39 @@ public class InvertedPageIndex {
             }
         }
         return ms;
+    }
+    MySet<PageEntry>getPagesWhichContainPhrase(String str[]){
+        MySet<PageEntry> s0 = this.getPagesWhichContainWord(str[0]);
+        MySet<PageEntry> ans = new MySet<>();
+        for(int i=0;i<s0.linkedl.size();i++){
+            //System.out.println(s0.linkedl.get(i).Pagekaname);
+            WordEntry first=new WordEntry(str[0]);
+            for(int k=0;k<s0.linkedl.get(i).PI.wordentries.size();k++){
+                if(s0.linkedl.get(i).PI.wordentries.get(k).str.equals(str[0]))  first=s0.linkedl.get(i).PI.wordentries.get(k);
+            }
+            //System.out.println(first.pos.size());
+            for(int j=0;j<first.pos.size();j++){
+                int flag=0;
+                for(int m=1;m<str.length;m++){
+                    //System.out.println("yes");
+                    for(int k=0;k<s0.linkedl.get(i).PI.wordentries.size();k++){
+                        if(s0.linkedl.get(i).PI.wordentries.get(k).str.equals(str[m]))  {
+                            //s0.linkedl.get(i).PI.wordentries.get(k).postree.inorder();System.out.println(s0.linkedl.get(i).PI.wordentries.get(k).str+" "+s0.linkedl.get(i).Pagekaname);
+                            if(s0.linkedl.get(i).PI.wordentries.get(k).postree.Find(m+first.pos.get(j).originalWordIndex)!=null){
+                                //System.out.println(m+first.pos.get(j).originalWordIndex +" "+s0.linkedl.get(i).Pagekaname);
+                                flag=1;
+                                break;
+                            }else{
+                                //System.out.println("this "+s0.linkedl.get(i).Pagekaname+" "+s0.linkedl.get(i).PI.wordentries.get(k).postree.Find(4).wordIndex);
+                            }
+                        }
+                        if(flag==1) break;
+                    }
+                    if(flag==1) break;
+                }
+                if(flag==1) ans.Insert(s0.linkedl.get(i));
+            }
+        }
+        return ans;
     }
 }

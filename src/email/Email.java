@@ -31,4 +31,18 @@ public class Email
 		}
 
 	}
+    /*public static void main(String[] args) throws FileNotFoundException{
+        MyAVLTree a = new MyAVLTree();
+        PageEntry temp = new PageEntry();
+        a.addNode(new Position(temp,0,69));
+        a.addNode(new Position(temp,0,115));
+        a.addNode(new Position(temp,0,73));
+        a.addNode(new Position(temp,0,98));
+        a.addNode(new Position(temp,0,11));
+        a.addNode(new Position(temp,0,2));
+        a.addNode(new Position(temp,0,81));
+        a.addNode(new Position(temp,0,78));
+        a.addNode(new Position(temp,0,3));
+        System.out.println(a.root.getValue().originalWordIndex);
+    }*/
 }

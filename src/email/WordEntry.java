@@ -12,13 +12,15 @@ package email;
 public class WordEntry {
     String str;
     MyLinkedList<Position> pos;
-    
+    MyAVLTree postree;
     WordEntry(String word){
         str = word;
         pos = new MyLinkedList<>();
+        postree = new MyAVLTree();
     }
     void addPosition(Position position){
         pos.add(position);
+        postree.addNode(position);
     }
     void addPositions(MyLinkedList<Position> positions){
         MyLinkedList<Position> an = positions.clone();
@@ -28,5 +30,8 @@ public class WordEntry {
     }
     MyLinkedList<Position> getAllPositionsForThisWord(){
         return pos;
+    }
+    Boolean isPresentAtOriginalPosition(int k){
+        return postree.Find(k)!=null;
     }
 }
