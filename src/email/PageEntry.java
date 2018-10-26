@@ -49,7 +49,12 @@ class PageEntry {
                     }
                 }
             }
-            return (float)count/((float)this.PI.wordentries.size()-(float)(str.length-1)*count);
+            float count1=0;
+        for(int i=0;i<this.PI.wordentries.size();i++){
+            count1+=this.PI.wordentries.get(i).pos.size();
+        }
+            //System.out.println(str[0] +" "+ this.Pagekaname +" "+ count+" "+count1);
+            return (float)count/((float)count1-(float)(str.length-1)*count);
     }
     float getInverseDocumentForPhrase(String[] str){
         int N = IPI.set.linkedl.size();
@@ -89,6 +94,7 @@ class PageEntry {
         float ans =0;
         if(doTheseWordsRepresentAPhrase){
             ans=this.getInverseDocumentForPhrase(str)*this.getPhraseFrequency(str);
+            
         }else{
             for(int i=0;i<str.length;i++){
                 //System.out.println(str[i]+this.getTermFrequency(str[i])+this.Pagekaname+getInverseDocumentFrequency(str[i]));

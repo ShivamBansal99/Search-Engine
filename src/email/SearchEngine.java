@@ -24,7 +24,17 @@ public class SearchEngine {
         if(s[0].equals("addPage")){
             PageEntry p = new PageEntry(s[1]);
             p.IPI=invpageindex;
-            invpageindex.addPage(p);
+            try{
+                for(int i=0;i<this.invpageindex.set.linkedl.size();i++){
+                    if(this.invpageindex.set.linkedl.get(i).Pagekaname.equals(s[1])){
+                        System.out.println("ERROR : Page Already Exists");
+                        return;
+                    }
+                }
+                invpageindex.addPage(p);
+            }catch(Exception e){
+                System.out.println("File not found");
+            }
         }
         if(s[0].equals("queryFindPagesWhichContainWord")){
             MySet<PageEntry> m = invpageindex.getPagesWhichContainWord(this.singular( s[1].toLowerCase()));
@@ -77,9 +87,9 @@ public class SearchEngine {
             }
             for(int i=0;i<arr.size();i++){
                 if(i==arr.size()-1){
-                    System.out.println(arr.get(i).p.Pagekaname);
+                    System.out.println(arr.get(i).p.Pagekaname+arr.get(i).r);
                 }else{
-                    System.out.print(arr.get(i).p.Pagekaname+", ");
+                    System.out.print(arr.get(i).p.Pagekaname+arr.get(i).r+", ");
                 }
             }
         }
@@ -102,7 +112,7 @@ public class SearchEngine {
                 if(i==arr.size()-1){
                     System.out.println(arr.get(i).p.Pagekaname);
                 }else{
-                    System.out.print(arr.get(i).p.Pagekaname+", ");
+                    System.out.print(arr.get(i).p.Pagekaname+arr.get(i).r+", ");
                 }
             }
         }
@@ -124,9 +134,9 @@ public class SearchEngine {
             ArrayList<SearchResult> arr = MySort.sortThisList(m1);
             for(int i=0;i<arr.size();i++){
                 if(i==arr.size()-1){
-                    System.out.println(arr.get(i).p.Pagekaname);
+                    System.out.println(arr.get(i).p.Pagekaname+arr.get(i).r);
                 }else{
-                    System.out.print(arr.get(i).p.Pagekaname+", ");
+                    System.out.print(arr.get(i).p.Pagekaname+arr.get(i).r+", ");
                 }
             }
         }
